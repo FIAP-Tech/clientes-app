@@ -2,9 +2,9 @@ package br.com.fiap.clientes.domain.service;
 
 import br.com.fiap.clientes.api.model.ClienteDto;
 import br.com.fiap.clientes.config.MessageConfig;
+import br.com.fiap.clientes.domain.exception.ClienteNaoEncontradoException;
 import br.com.fiap.clientes.domain.model.Cliente;
 import br.com.fiap.clientes.domain.repository.ClienteRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class ClienteService {
 
             return modelMapper.map(cliente, ClienteDto.class);
         } else {
-            throw new EntityNotFoundException(messageConfig.getClienteNaoEncontrado());
+            throw new ClienteNaoEncontradoException(messageConfig.getClienteNaoEncontrado());
         }
     }
 
@@ -55,7 +55,7 @@ public class ClienteService {
         if(optionalCliente.isPresent()){
             clienteRepository.deleteById(id);
         } else {
-            throw new EntityNotFoundException(messageConfig.getClienteNaoEncontrado());
+            throw new ClienteNaoEncontradoException(messageConfig.getClienteNaoEncontrado());
         }
     }
 
@@ -65,7 +65,7 @@ public class ClienteService {
         if(optionalCliente.isPresent()){
             return modelMapper.map(optionalCliente.get(), ClienteDto.class);
         } else {
-            throw new EntityNotFoundException(messageConfig.getClienteNaoEncontrado());
+            throw new ClienteNaoEncontradoException(messageConfig.getClienteNaoEncontrado());
         }
     }
 

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -18,7 +19,7 @@ public class ClienteController {
 
     @GetMapping
     public List<ClienteDto> buscarClientePorNome(@RequestParam(required = false) String nome) {
-        if(nome.isEmpty()){
+        if(Objects.isNull(nome)){
             return service.findAll();
         }else{
             return service.buscarClientePorNome(nome);

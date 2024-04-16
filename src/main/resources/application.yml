@@ -21,3 +21,6 @@ spring:
         generate-ddl: false  # Generate DDL from entity models (optional, for schema creation)
         open-in-view: false  # Disable Open Session in View (OSIV) to prevent lazy loading issues
 
+messages:
+    error:
+        cliente-nao-encontrado: "Cliente não foi encontrado"

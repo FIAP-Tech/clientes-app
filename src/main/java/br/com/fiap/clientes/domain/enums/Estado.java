@@ -50,7 +50,7 @@ public enum Estado {
         return Stream.of(Estado.values())
                 .filter(enumValue -> enumValue.getSigla().equals(value.toUpperCase()))
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException("Estado com sigla fora do padrão de 2 caracteres"));
     }
 
 }

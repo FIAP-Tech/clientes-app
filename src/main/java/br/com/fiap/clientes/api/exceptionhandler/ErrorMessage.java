@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class ErrorMessage {
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime timestamp;
 
     private Integer status;
