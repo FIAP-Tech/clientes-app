@@ -1,7 +1,6 @@
 package br.com.fiap.clientes.api.controller;
 
 import br.com.fiap.clientes.api.model.ClienteDto;
-import br.com.fiap.clientes.domain.model.Cliente;
 import br.com.fiap.clientes.domain.service.ClienteService;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,13 +17,18 @@ public class ClienteController {
     private final ClienteService service;
 
     @GetMapping
-    public List<Cliente> getAll() {
-        return service.getAll();
+    public List<ClienteDto> buscarClientePorNome(@RequestParam(required = false) String nome) {
+        if(nome.isEmpty()){
+            return service.findAll();
+        }else{
+            return service.buscarClientePorNome(nome);
+        }
+
     }
 
-    @GetMapping("/{nome}")
-    public List<ClienteDto> getClienteByNome(@PathVariable String nome) {
-        return service.getClienteByNome(nome);
+    @GetMapping("/{id}")
+    public ClienteDto getClienteById(@PathVariable Long id) {
+        return service.getClienteById(id);
     }
 
     @PostMapping

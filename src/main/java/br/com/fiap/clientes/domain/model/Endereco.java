@@ -1,6 +1,7 @@
 package br.com.fiap.clientes.domain.model;
 
 import br.com.fiap.clientes.domain.enums.Estado;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -13,6 +14,7 @@ public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Long id;
 
     @Column(nullable = false, length = 200)

@@ -1,6 +1,7 @@
 package br.com.fiap.clientes.domain.service;
 
 import br.com.fiap.clientes.api.model.ClienteDto;
+import br.com.fiap.clientes.config.MessageConfig;
 import br.com.fiap.clientes.domain.model.Cliente;
 import br.com.fiap.clientes.domain.repository.ClienteRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,16 +19,14 @@ public class ClienteService {
 
     private final ModelMapper modelMapper;
 
-    public List<ClienteDto> getClienteByNome(String nome) {
+    private final MessageConfig messageConfig;
+
+    public List<ClienteDto> buscarClientePorNome(String nome) {
         var clienteList = clienteRepository.findByNomeIgnoreCaseContaining(nome);
 
         return clienteList.stream()
                 .map(cliente -> modelMapper.map(cliente, ClienteDto.class))
                 .toList();
-    }
-
-    public List<Cliente> getAll() {
-        return clienteRepository.findAll();
     }
 
     public void add(ClienteDto clienteDto) {
@@ -46,7 +45,7 @@ public class ClienteService {
 
             return modelMapper.map(cliente, ClienteDto.class);
         } else {
-            throw new EntityNotFoundException("Cliente não foi encontrado");
+            throw new EntityNotFoundException(messageConfig.getClienteNaoEncontrado());
         }
     }
 
@@ -56,7 +55,23 @@ public class ClienteService {
         if(optionalCliente.isPresent()){
             clienteRepository.deleteById(id);
         } else {
-            throw new EntityNotFoundException("Cliente não foi encontrado");
+            throw new EntityNotFoundException(messageConfig.getClienteNaoEncontrado());
         }
+    }
+
+    public ClienteDto getClienteById(Long id) {
+        var optionalCliente = clienteRepository.findById(id);
+
+        if(optionalCliente.isPresent()){
+            return modelMapper.map(optionalCliente.get(), ClienteDto.class);
+        } else {
+            throw new EntityNotFoundException(messageConfig.getClienteNaoEncontrado());
+        }
+    }
+
+    public List<ClienteDto> findAll() {
+        return clienteRepository.findAll().stream()
+                .map(cliente -> modelMapper.map(cliente, ClienteDto.class))
+                .toList();
     }
 }

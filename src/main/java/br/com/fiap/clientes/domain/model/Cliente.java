@@ -1,5 +1,6 @@
 package br.com.fiap.clientes.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,16 +28,19 @@ public class Cliente {
     @Column(nullable = false, length = 60)
     private String telefone;
 
-    @Column
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
     @Column(nullable = false)
+    @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate dataNascimento;
 
     @Column(nullable = false)
     private String cpf;
 
     @Column
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataCadastro;
 
     @PrePersist
