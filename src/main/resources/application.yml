@@ -5,9 +5,9 @@ spring:
     application:
         name: clientes-app
     datasource:
-        url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/your_database_name}
-        username: ${DATASOURCE_USERNAME:your_username}
-        password: ${DATASOURCE_PASSWORD:your_password}
+        url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/db_clientes}
+        username: ${DATASOURCE_USERNAME:postgres}
+        password: ${DATASOURCE_PASSWORD:teste123}
         driver-class-name: org.postgresql.Driver
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
