@@ -4,6 +4,7 @@ import br.com.fiap.clientes.api.model.ClienteDto;
 import br.com.fiap.clientes.config.MessageConfig;
 import br.com.fiap.clientes.domain.exception.ClienteNaoEncontradoException;
 import br.com.fiap.clientes.domain.model.Cliente;
+import br.com.fiap.clientes.domain.model.MensagemEmail;
 import br.com.fiap.clientes.domain.repository.ClienteRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +22,8 @@ public class ClienteService {
 
     private final MessageConfig messageConfig;
 
+    private final SQSService sqsService;
+
     public List<ClienteDto> buscarClientePorNome(String nome) {
         var clienteList = clienteRepository.findByNomeIgnoreCaseContaining(nome);
 
@@ -29,9 +32,21 @@ public class ClienteService {
                 .toList();
     }
 
+    private void enviarEmailBoasVindas(Cliente cliente) {
+        MensagemEmail mensagemEmail = new MensagemEmail();
+        mensagemEmail.setEmailDestinatario(cliente.getEmail());
+        mensagemEmail.setAssunto("Bem-vindo ao FIAP e-commerce");
+        mensagemEmail.addCorpoEmail("Bem vindo ao FIAP e-commerce <b>" +cliente.getNome()+ "</b>");
+        mensagemEmail.addCorpoEmail("Estamos muito felizes de ter você aqui");
+        mensagemEmail.addCorpoEmail("Qualquer dúvida estamos á sua disposição");
+
+        sqsService.enviarMensagem(mensagemEmail);
+    }
+
     public void add(ClienteDto clienteDto) {
         var cliente = modelMapper.map(clienteDto, Cliente.class);
         clienteRepository.save(cliente);
+        enviarEmailBoasVindas(cliente);
     }
 
     public ClienteDto update(ClienteDto clienteDto, Long id) {
