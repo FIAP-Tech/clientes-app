@@ -12,12 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class SQSService {
 
-    private final AmazonSQS sqsClient;
-
     @Value("${aws.sqs.endpoint}")
     private String sqsEndpoint;
 
+    private final AmazonSQS sqsClient;
+
     private final ObjectMapper objectMapper;
+
 
     public SQSService(AmazonSQS amazonSQS, ObjectMapper objectMapper) {
         this.sqsClient = amazonSQS;

@@ -23,8 +23,11 @@ spring:
 
 aws:
     region: us-east-1
+    credentials:
+        client-id: ${AWS_CLIENT_ID:1111111111}
+        client-secret: ${AWS_CLIENT_SECRET:2222222222}
     sqs:
-        endpoint: ${SQS_ENDPOINT_ENVIA_EMAILS:http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/envia-emails}
+        endpoint: ${AWS_SQS_ENDPOINT_ENVIA_EMAILS:http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/envia-emails}
 
 messages:
     error:

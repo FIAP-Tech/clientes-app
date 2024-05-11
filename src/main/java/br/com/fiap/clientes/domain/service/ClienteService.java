@@ -35,10 +35,8 @@ public class ClienteService {
     private void enviarEmailBoasVindas(Cliente cliente) {
         MensagemEmail mensagemEmail = new MensagemEmail();
         mensagemEmail.setEmailDestinatario(cliente.getEmail());
-        mensagemEmail.setAssunto("Bem-vindo ao FIAP e-commerce");
-        mensagemEmail.addCorpoEmail("Bem vindo ao FIAP e-commerce <b>" +cliente.getNome()+ "</b>");
-        mensagemEmail.addCorpoEmail("Estamos muito felizes de ter você aqui");
-        mensagemEmail.addCorpoEmail("Qualquer dúvida estamos á sua disposição");
+        mensagemEmail.setAssunto(cliente.getNome() + ", Seja Bem-vindo ao FIAP e-commerce");
+        mensagemEmail.setCorpoEmail(cliente.getNome());
 
         sqsService.enviarMensagem(mensagemEmail);
     }
