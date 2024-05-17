@@ -2,7 +2,7 @@ package br.com.fiap.clientes.api.controller;
 
 import br.com.fiap.clientes.api.model.ClienteDto;
 import br.com.fiap.clientes.domain.service.ClienteService;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -34,12 +34,12 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @NotNull ClienteDto clienteDto) {
+    public void add(@RequestBody @Valid ClienteDto clienteDto) {
         service.add(clienteDto);
     }
 
     @PutMapping("/{id}")
-    public ClienteDto update(@RequestBody @NotNull ClienteDto clienteDto, @PathVariable("id") Long id){
+    public ClienteDto update(@RequestBody @Valid ClienteDto clienteDto, @PathVariable("id") Long id){
         return service.update(clienteDto, id);
     }
 

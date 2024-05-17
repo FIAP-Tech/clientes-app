@@ -2,10 +2,8 @@ package br.com.fiap.clientes.api.model;
 
 import br.com.fiap.clientes.domain.model.Endereco;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -17,8 +15,10 @@ public class ClienteDto {
 
     private Long id;
 
+    @NotBlank(message = "Nome precisa ser enviado")
     private String nome;
 
+    @NotBlank(message = "Email precisa ser enviado")
     private String email;
 
     private String telefone;
@@ -28,5 +28,6 @@ public class ClienteDto {
     @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate dataNascimento;
 
+    @NotBlank(message = "CPF precisa ser enviado")
     private String cpf;
 }

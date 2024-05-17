@@ -5,8 +5,10 @@ import br.com.fiap.clientes.config.MessageConfig;
 import br.com.fiap.clientes.dados.ClienteDados;
 import br.com.fiap.clientes.domain.exception.ClienteNaoEncontradoException;
 import br.com.fiap.clientes.domain.model.Cliente;
+import br.com.fiap.clientes.domain.model.MensagemEmail;
 import br.com.fiap.clientes.domain.repository.ClienteRepository;
 import br.com.fiap.clientes.domain.service.ClienteService;
+import br.com.fiap.clientes.domain.service.SQSService;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -36,6 +38,9 @@ public class ClienteServiceTest extends ClienteDados {
 
     @Mock
     private MessageConfig messageConfig;
+
+    @Mock
+    private SQSService sqsService;
 
     @BeforeEach
     void setup() {
@@ -99,6 +104,7 @@ public class ClienteServiceTest extends ClienteDados {
             var clienteDto = criarClienteDto1();
 
             when(modelMapper.map(clienteDto, Cliente.class)).thenReturn(cliente);
+            doNothing().when(sqsService).enviarMensagem(any(MensagemEmail.class));
 
             clienteService.add(clienteDto);
 
