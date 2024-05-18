@@ -5,7 +5,7 @@ spring:
     application:
         name: clientes-app
     datasource:
-        url: ${DATASOURCE_URL:jdbc:postgresql://database-1-instance-1.cniicq4oumi6.us-east-1.rds.amazonaws.com:5432/db_clientes}
+        url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/db_clientes}
         username: ${DATASOURCE_USERNAME:postgres}
         password: ${DATASOURCE_PASSWORD:teste123}
         driver-class-name: org.postgresql.Driver
@@ -22,15 +22,12 @@ spring:
         open-in-view: false  # Disable Open Session in View (OSIV) to prevent lazy loading issues
 
 aws:
-    stack:
-      auto: false
-    region:
-      static: us-east-1
+    region: us-east-1
     credentials:
         client-id: ${AWS_CLIENT_ID:1111111111}
         client-secret: ${AWS_CLIENT_SECRET:2222222222}
     sqs:
-        endpoint: ${AWS_SQS_ENDPOINT_ENVIA_EMAILS:https://sqs.us-east-1.amazonaws.com/000540761307/envia-emails}
+        endpoint: ${AWS_SQS_ENDPOINT_ENVIA_EMAILS:http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/envia-emails}
 
 messages:
     error:
