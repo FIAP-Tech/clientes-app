@@ -40,7 +40,7 @@ public class ClienteServiceIntegrationTest extends ClienteDados {
                     .isNotNull()
                     .isInstanceOf(ClienteDto.class);
             assertThat(listaClientes.get(0).getEmail())
-                    .isEqualTo("ricardo@gmail.com");
+                    .isEqualTo("ricardolara.ti@gmail.com");
         }
 
         @Test
@@ -56,7 +56,7 @@ public class ClienteServiceIntegrationTest extends ClienteDados {
                     .isNotNull()
                     .isInstanceOf(ClienteDto.class);
             assertThat(listaClientes.get(0).getEmail())
-                    .isEqualTo("ricardo@gmail.com");
+                    .isEqualTo("ricardolara.ti@gmail.com");
         }
 
         @Test
@@ -165,7 +165,7 @@ public class ClienteServiceIntegrationTest extends ClienteDados {
                     .isNotNull()
                     .isInstanceOf(ClienteDto.class);
             assertThat(cliente.getEmail())
-                    .isEqualTo("ricardo@gmail.com");
+                    .isEqualTo("ricardolara.ti@gmail.com");
             assertThat(cliente.getNome())
                     .isEqualTo("Ricardo Silva");
         }
